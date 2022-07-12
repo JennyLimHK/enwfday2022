@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <script>
+      AFRAME.registerComponent('audiohandler', {
+        init: function() {
+          let playing = false;
+          let audio = document.querySelector("#neigh");
+          this.el.addEventListener('click', () => {
+            if (!playing) {
+              audio.play();
+            } else {
+              audio.pause();
+              audio.currentTime = 0;
+            }
+            playing = !playing;
+          });
+        }
+      })
+    
+    </script>
+    <a-scene mindar-image="imageTargetSrc: ./assets/targets.mind;" cursor="rayOrigin:mouse" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <img id="world-family-card" crossOrigin="anonymous" src="./assets/familyday-group-photo.jpg"></img>
+        <audio id="world-family-hymn" crossorigin="anonymous" src="./assets/we_believe_in_love.mp3" preload=""auto"></audio>
+      </a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-plane src="#world-family-card" position="0 0 0" rotation="0 0 0" audiohandler>
+        </a-plane>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
